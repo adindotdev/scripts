@@ -3,7 +3,7 @@
 if [[ -z "$1" ]]; then
   echo
   echo "Device not set."
-  echo "Usage: build-carbon <device> [build type]"
+  echo "Usage: build-carbon <device> [user (userdebug) eng]"
   echo
   exit
 fi
@@ -12,15 +12,18 @@ if [[ -z "$2" ]]; then
   echo
   echo "Build type set to userdebug (default)."
   echo
+  set -- "$1" "userdebug"
 fi
 
 WORK_DIR=~/carbon
 OUT_DIR=/android_build_out/carbon
+
 DEVICE=$1
+BUILDTYPE=$2
 
 cd $WORK_DIR || exit
 source build/envsetup.sh
-lunch carbon_"$DEVICE"-userdebug
+lunch carbon_"$DEVICE"-"$BUILDTYPE"
 
 if [ -d "$OUT_DIR/target/product/$DEVICE" ]; then
   echo
