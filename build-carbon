@@ -11,7 +11,6 @@ fi
 if [[ -z "$2" ]]; then
   echo
   echo "Build type set to userdebug (default)."
-  echo
   set -- "$1" "userdebug"
 fi
 
@@ -22,8 +21,8 @@ DEVICE=$1
 BUILDTYPE=$2
 
 cd $WORK_DIR || exit
-source build/envsetup.sh
-lunch carbon_"$DEVICE"-"$BUILDTYPE"
+source build/envsetup.sh > /dev/null
+lunch carbon_"$DEVICE"-userdebug
 
 if [ -d "$OUT_DIR/target/product/$DEVICE" ]; then
   echo
